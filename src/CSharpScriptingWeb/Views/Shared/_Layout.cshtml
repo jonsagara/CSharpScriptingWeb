@@ -9,10 +9,13 @@
     <link rel="stylesheet" href="~/CSharpScriptingWeb.styles.css" asp-append-version="true" />
 </head>
 <body>
+    @{
+        var title = "C# Scripting Compilation Performance in Azure App Service";
+    }
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">C# Scripting Compilation Performance</a>
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">@title</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -33,7 +36,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2023 - C# Scripting Compilation Performance
+            &copy; 2023 - @title
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
