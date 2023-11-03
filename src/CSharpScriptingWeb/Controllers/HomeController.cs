@@ -56,6 +56,7 @@ public class HomeController : Controller
             model.PeopleEqual = personToCopy == result.ReturnValue;
             model.OriginalPersonJson = JsonSerializer.Serialize(personToCopy, _jsonSerializerOptions);
             model.ScriptedPersonJson = JsonSerializer.Serialize(result.ReturnValue, _jsonSerializerOptions);
+            model.ScriptText = TheScript;
         }
         catch (Exception ex)
         {
