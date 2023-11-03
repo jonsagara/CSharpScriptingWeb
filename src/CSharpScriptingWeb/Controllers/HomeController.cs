@@ -27,7 +27,7 @@ public class HomeController : Controller
             // Add namespaces and references.
             var createScriptOptionsStarted = Stopwatch.GetTimestamp();
             var scriptOptions = ScriptOptions.Default
-                .WithOptimizationLevel(OptimizationLevel.Release)
+                .WithOptimizationLevel(OptimizationLevel.Debug)
                 .WithImports(_importNamespaces)
                 .WithReferences(Assembly.GetExecutingAssembly());
             model.CreateScriptOptionsElapsed = Stopwatch.GetElapsedTime(createScriptOptionsStarted);
