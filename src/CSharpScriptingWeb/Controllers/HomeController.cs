@@ -23,28 +23,39 @@ public class HomeController : Controller
 
         try
         {
+            // Add namespaces and references.
+            var createScriptOptionsStarted = Stopwatch.GetTimestamp();
             var scriptOptions = ScriptOptions.Default
                 .WithImports(_importNamespaces)
                 .WithReferences(Assembly.GetExecutingAssembly());
+            model.CreateScriptOptionsElapsed = Stopwatch.GetElapsedTime(createScriptOptionsStarted);
 
+            // Create the C# script object.
+            var createScriptStarted = Stopwatch.GetTimestamp();
             var script = CSharpScript.Create<Person>(
                 TheScript,
                 globalsType: typeof(Person),
                 options: scriptOptions
-            );
+                );
+            model.CreateScriptElapsed = Stopwatch.GetElapsedTime(createScriptStarted);
 
-            var swCompileStarted = Stopwatch.GetTimestamp();
+            // Compile the C# script.
+            var compileStarted = Stopwatch.GetTimestamp();
             var compileDiagnostics = script.Compile();
-            var swCompileElapsed = Stopwatch.GetElapsedTime(swCompileStarted);
-            _logger.LogInformation($"Compiling a {nameof(CSharpScript)} took: {{swCompileElapsed}}.", swCompileElapsed);
+            model.CompileElapsed = Stopwatch.GetElapsedTime(compileStarted);
+            _logger.LogInformation($"Compiling a {nameof(CSharpScript)} took: {{swCompileElapsed}}.", model.CompileElapsed);
 
             var personToCopy = CreatePersonToCopy();
-            var result = await script.RunAsync(personToCopy);
 
+            // Run the C# script, passing it data.
+            var runStarted = Stopwatch.GetTimestamp();
+            var result = await script.RunAsync(personToCopy);
+            model.RunElapsed = Stopwatch.GetElapsedTime(runStarted);
+
+            // Populate non-timing results.
             model.PeopleEqual = personToCopy == result.ReturnValue;
             model.OriginalPersonJson = JsonSerializer.Serialize(personToCopy, _jsonSerializerOptions);
             model.ScriptedPersonJson = JsonSerializer.Serialize(result.ReturnValue, _jsonSerializerOptions);
-            model.ScriptCompilationElapsed = swCompileElapsed;
         }
         catch (Exception ex)
         {

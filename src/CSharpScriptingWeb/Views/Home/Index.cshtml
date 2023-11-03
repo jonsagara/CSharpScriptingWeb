@@ -4,23 +4,55 @@
 }
 
 <div>
-    <h1 class="display-4">Welcome</h1>
-    
-    <p>
-        <strong>Compilation time:</strong> @Model.ScriptCompilationElapsed
-    </p>
+    <h3>Timings</h3>
+    <div class="row">
+        <div class="col-6">
 
-    <p>
-        <strong>Original same as Scripted?</strong> @Model.PeopleEqual
-    </p>
+            <table class="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th>Type</th>
+                        <th>Elapsed</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Create <code>ScriptOptions</code></td>
+                        <td>@Model.CreateScriptOptionsElapsed</td>
+                    </tr>
+                    <tr>
+                        <td><code>CSharpScript.Create&lt;Person&gt;()</code></td>
+                        <td>@Model.CreateScriptElapsed</td>
+                    </tr>
+                    <tr>
+                        <td><code>script.Compile()</code></td>
+                        <td>@Model.CompileElapsed</td>
+                    </tr>
+                    <tr>
+                        <td><code>script.RunAsync()</code></td>
+                        <td>@Model.RunElapsed</td>
+                    </tr>
+                </tbody>
+            </table>
 
-    <p>
-        <strong>Original Person:</strong>
-        <pre>@Model.OriginalPersonJson</pre>
-    </p>
+            <p>
+                <strong>Original Person equals Scripted Person?</strong> @Model.PeopleEqual
+            </p>
 
-    <p>
-        <strong>Scripted Person:</strong>
-        <pre>@Model.ScriptedPersonJson</pre>
-    </p>
+            <div class="card text-dark bg-light mb-3">
+                <div class="card-header">Original Person</div>
+                <div class="card-body">
+                    <pre>@Model.OriginalPersonJson</pre>
+                </div>
+            </div>
+
+            <div class="card text-dark bg-light mb-3">
+                <div class="card-header">Scripted Person</div>
+                <div class="card-body">
+                    <pre>@Model.ScriptedPersonJson</pre>
+                </div>
+            </div>
+
+        </div>
+    </div>
 </div>
