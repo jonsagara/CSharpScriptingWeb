@@ -1,13 +1,10 @@
-﻿using System;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Reflection;
 using System.Text.Json;
 using CSharpScriptingWeb.Models;
-using Microsoft.AspNetCore.Http.Json;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis.CSharp.Scripting;
 using Microsoft.CodeAnalysis.Scripting;
-using Serilog;
 
 namespace CSharpScriptingWeb.Controllers;
 
@@ -39,7 +36,7 @@ public class HomeController : Controller
             var swCompileStarted = Stopwatch.GetTimestamp();
             var compileDiagnostics = script.Compile();
             var swCompileElapsed = Stopwatch.GetElapsedTime(swCompileStarted);
-            Log.Information($"Compiling a {nameof(CSharpScript)} took: {{swCompileElapsed}}.", swCompileElapsed);
+            _logger.LogInformation($"Compiling a {nameof(CSharpScript)} took: {{swCompileElapsed}}.", swCompileElapsed);
 
             var personToCopy = CreatePersonToCopy();
             var result = await script.RunAsync(personToCopy);
@@ -97,9 +94,9 @@ public class HomeController : Controller
     // Stuff
     //
 
-    private static readonly JsonSerializerOptions _jsonSerializerOptions = new JsonSerializerOptions 
-    { 
-        WriteIndented = true, 
+    private static readonly JsonSerializerOptions _jsonSerializerOptions = new JsonSerializerOptions
+    {
+        WriteIndented = true,
     };
 
     private static readonly string[] _importNamespaces = new[]
