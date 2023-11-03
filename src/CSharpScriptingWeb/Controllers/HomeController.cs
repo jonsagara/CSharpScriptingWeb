@@ -3,6 +3,7 @@ using System.Reflection;
 using System.Text.Json;
 using CSharpScriptingWeb.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Scripting;
 using Microsoft.CodeAnalysis.Scripting;
 
@@ -26,6 +27,7 @@ public class HomeController : Controller
             // Add namespaces and references.
             var createScriptOptionsStarted = Stopwatch.GetTimestamp();
             var scriptOptions = ScriptOptions.Default
+                .WithOptimizationLevel(OptimizationLevel.Release)
                 .WithImports(_importNamespaces)
                 .WithReferences(Assembly.GetExecutingAssembly());
             model.CreateScriptOptionsElapsed = Stopwatch.GetElapsedTime(createScriptOptionsStarted);
