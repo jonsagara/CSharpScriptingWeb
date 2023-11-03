@@ -1,0 +1,26 @@
+﻿@model HomeIndexModel
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div>
+    <h1 class="display-4">Welcome</h1>
+    
+    <p>
+        <strong>Compilation time:</strong> @Model.ScriptCompilationElapsed
+    </p>
+
+    <p>
+        <strong>Original same as Scripted?</strong> @Model.PeopleEqual
+    </p>
+
+    <p>
+        <strong>Original Person:</strong>
+        <pre>@Model.OriginalPersonJson</pre>
+    </p>
+
+    <p>
+        <strong>Scripted Person:</strong>
+        <pre>@Model.ScriptedPersonJson</pre>
+    </p>
+</div>
