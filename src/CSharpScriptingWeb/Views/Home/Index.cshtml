@@ -56,6 +56,19 @@
         </div>
 
         <div class="col-6">
+            @if (Model.CompilationErrors.Count > 0)
+            {
+                <div class="card text-dark bg-light mb-3">
+                    <div class="card-header">Compilation Errors</div>
+                    <div class="card-body">
+                        @foreach (var compilationError in Model.CompilationErrors)
+                        {
+                            <p>@compilationError</p>
+                        }
+                    </div>
+                </div>
+            }
+
             <div class="card text-dark bg-light mb-3">
                 <div class="card-header">Script</div>
                 <div class="card-body">

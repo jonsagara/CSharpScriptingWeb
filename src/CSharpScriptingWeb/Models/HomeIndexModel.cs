@@ -6,6 +6,7 @@ public class HomeIndexModel
     public string OriginalPersonJson { get; set; } = null!;
     public string ScriptedPersonJson { get; set; } = null!;
     public string ScriptText { get; set; } = null!;
+    public List<string> CompilationErrors { get; private set; } = new();
 
 
     //
