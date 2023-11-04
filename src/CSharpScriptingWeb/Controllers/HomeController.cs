@@ -32,10 +32,10 @@ public class HomeController : Controller
                 .WithReferences(Assembly.GetExecutingAssembly());
             model.CreateScriptOptionsElapsed = Stopwatch.GetElapsedTime(createScriptOptionsStarted);
 
-            // Create the C# script object.
+            // Create the C# script object. Force it to be a new string.
             var createScriptStarted = Stopwatch.GetTimestamp();
             var script = CSharpScript.Create<Person>(
-                TheScript,
+                $"{TheScript}",
                 globalsType: typeof(Person),
                 options: scriptOptions
                 );
